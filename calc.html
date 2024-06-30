@@ -356,6 +356,15 @@
                     }
                 });
             });
+
+            document.querySelectorAll('.calculator input').forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const button = input.closest('.calculator').querySelector('button');
+                        button.click();
+                    }
+                });
+            });
         });
     </script>
 </body>
