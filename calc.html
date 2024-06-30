@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculators</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E2E2E;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 32px 0 0 0;
+            font-size: 1.44em;
+            position: relative;
+        }
+        .calculators {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .calculator {
+            display: none;
+            flex: 0 0 45%;
+            margin: 20px;
+            background-color: #3E3E3E;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-size: 1.44vw;
+            box-sizing: border-box;
+            max-width: 45%;
+        }
+        .calculator input, .calculator button, .calculator .result, .calculator .row label {
+            font-size: 1.44vw;
+        }
+        .calculator input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #555;
+            box-sizing: border-box;
+        }
+        .calculator select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #555;
+            box-sizing: border-box;
+            background-color: #3E3E3E;
+            color: white;
+        }
+        .calculator button {
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+        .calculator button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .result {
+            margin-top: 20px;
+        }
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        .calculator .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .calculator .row label {
+            flex: 1;
+            text-align: left;
+            margin-right: 10px;
+        }
+        .calculator .row input {
+            flex: 2;
+        }
+        .calculator .row select {
+            flex: 2;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-container input {
+            margin-left: 10px;
+        }
+        h2 {
+            font-size: 1.44vw;
+            font-weight: bold;
+        }
+        .button-container {
+            margin-bottom: 20px;
+        }
+        .calculator-button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            background-color: transparent;
+            border: 2px solid white;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .calculator-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        @media (max-width: 768px) {
+            .calculator {
+                flex: 0 0 90%;
+                font-size: 2.4vw;
+            }
+            h2, .calculator input, .calculator button, .calculator .result, .calculator .row label {
+                font-size: 2.4vw;
+            }
+        }
+        @media (max-width: 480px) {
+            .calculator {
+                flex: 0 0 100%;
+                font-size: 3.6vw;
+            }
+            h2, .calculator input, .calculator button, .calculator .result, .calculator .row label {
+                font-size: 3.6vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="calculator-button" onclick="showCalculator('leverageCalculator')">Leverage</button>
+        <button class="calculator-button" onclick="showCalculator('forexCalculator')">Forex Lot</button>
+        <button class="calculator-button" onclick="showCalculator('b3ProfitCalculator')">B3 Profit</button>
+        <button class="calculator-button" onclick="showCalculator('compoundInterestCalculator')">Compound Interest</button>
+        <button class="calculator-button" onclick="showCalculator('ruleOfThreeCalculator')">Rule of Three</button>
+    </div>
+    <div class="calculators">
+        <div class="calculator" id="leverageCalculator">
+            <h2>Leverage</h2>
+            <div class="row">
+                <label for="leverage">Leverage:</label>
+                <input type="number" id="leverage" step="any" placeholder="Leverage" maxlength="5">
+            </div>
+            <div class="row">
+                <label for="percentage">Percentage Earned (%):</label>
+                <input type="number" id="percentage" step="any" placeholder="Percentage Earned" maxlength="5">
+            </div>
+            <button onclick="calculateLeveragedProfit()">Calculate</button>
+            <div class="result" id="leveragedProfitResultText"></div>
+        </div>
+
+        <div class="calculator" id="forexCalculator">
+            <h2>Forex Lot</h2>
+            <div class="row">
+                <label for="lotSize">Lot Size ($):</label>
+                <input type="number" id="lotSize" step="any" placeholder="Lot Size" maxlength="5">
+            </div>
+            <div class="row">
+                <label for="profit">Profit Amount ($):</label>
+                <input type="number" id="profit" step="any" placeholder="Profit Amount" maxlength="5">
+            </div>
+            <button onclick="calculateProfit()">Calculate</button>
+            <div class="result" id="profitResultText"></div>
+        </div>
+
+        <div class="calculator" id="b3ProfitCalculator">
+            <h2>B3 Profit Calculator</h2>
+            <div class="row">
+                <label for="contracts">Contracts:</label>
+                <input type="number" id="contracts" placeholder="Number of contracts">
+            </div>
+            <div class="row">
+                <label for="type">Type:</label>
+                <select id="type">
+                    <option value="miniIndice">Mini Index</option>
+                    <option value="miniDolar">Mini Dollar</option>
+                    <option value="indice">Index</option>
+                    <option value="dolar">Dollar</option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="points">Points:</label>
+                <input type="number" id="points" step="0.5" placeholder="Number of points">
+            </div>
+            <div class="row checkbox-container">
+                <label for="taxDeducted">Tax Deducted:</label>
+                <input type="checkbox" id="taxDeducted">
+            </div>
+            <button onclick="calculateB3Profit()">Calculate</button>
+            <div class="result" id="b3ProfitResultText"></div>
+        </div>
+
+        <div class="calculator" id="compoundInterestCalculator">
+            <h2>Compound Interest Calculator</h2>
+            <div class="row">
+                <label for="initialInvestment">Initial Investment ($):</label>
+                <input type="number" id="initialInvestment" step="any" placeholder="Initial Investment">
+            </div>
+            <div class="row">
+                <label for="contribution">Daily/Monthly Contribution ($):</label>
+                <input type="number" id="contribution" step="any" placeholder="Contribution">
+            </div>
+            <div class="row">
+                <label for="rate">Daily/Monthly Interest Rate (%):</label>
+                <input type="number" id="rate" step="any" placeholder="Interest Rate">
+            </div>
+            <div class="row">
+                <label for="period">Investment Period (days/months):</label>
+                <input type="number" id="period" step="any" placeholder="Investment Period">
+            </div>
+            <div class="row">
+                <label for="compoundFrequency">Compounding Frequency:</label>
+                <select id="compoundFrequency">
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            <button onclick="calculateCompoundInterest()">Calculate</button>
+            <div class="result" id="compoundInterestResultText"></div>
+        </div>
+
+        <div class="calculator" id="ruleOfThreeCalculator">
+            <h2>Rule of Three</h2>
+            <div class="row">
+                <input type="number" id="input1" step="any" placeholder="11.56" maxlength="5">
+                <span>&rarr;</span>
+                <input type="number" id="input3" value="100" disabled>
+            </div>
+            <div class="row">
+                <input type="number" id="input2" step="any" placeholder="0.78" maxlength="5">
+                <span>&rarr;</span>
+                <input type="number" id="result" disabled placeholder="X">
+            </div>
+            <button onclick="calculateRuleOfThree()">Calculate</button>
+            <div class="result" id="ruleOfThreeResultText"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('leverageCalculator').style.display = 'block';
+
+        function showCalculator(calculatorId) {
+            const calculators = document.querySelectorAll('.calculator');
+            calculators.forEach(calculator => {
+                calculator.style.display = 'none';
+            });
+            document.getElementById(calculatorId).style.display = 'block';
+        }
+
+        function calculateB3Profit() {
+            let contracts = parseInt(document.getElementById('contracts').value);
+            let type = document.getElementById('type').value;
+            let points = parseFloat(document.getElementById('points').value);
+            let taxDeducted = document.getElementById('taxDeducted').checked;
+
+            let contractValue;
+            switch (type) {
+                case 'miniIndice':
+                    contractValue = 0.2;
+                    break;
+                case 'indice':
+                    contractValue = 1;
+                    break;
+                case 'miniDolar':
+                    contractValue = 10;
+                    break;
+                case 'dolar':
+                    contractValue = 50;
+                    break;
+            }
+
+            if ((type === 'dolar' || type === 'indice') && contracts % 5 !== 0) {
+                alert('Contracts must be in multiples of 5 for Dollar and Index.');
+                return;
+            }
+
+            let total = contracts * contractValue * points;
+
+            if (taxDeducted) {
+                total *= 0.8;
+            }
+
+            document.getElementById('b3ProfitResultText').innerText = `Total Profit: ${total.toFixed(2)}`;
+        }
+
+        function calculateLeveragedProfit() {
+            let leverage = parseFloat(document.getElementById('leverage').value);
+            let percentage = parseFloat(document.getElementById('percentage').value);
+            let leveragedProfit = leverage * percentage;
+            document.getElementById('leveragedProfitResultText').innerText = `Leverage Profit: ${leveragedProfit.toFixed(2)}%`;
+        }
+
+        function calculateProfit() {
+            let lotSize = parseFloat(document.getElementById('lotSize').value);
+            let profit = parseFloat(document.getElementById('profit').value);
+            document.getElementById('profitResultText').innerText = `Profit: ${(profit / lotSize * 100).toFixed(2)}%`;
+        }
+
+        function calculateRuleOfThree() {
+            let input1 = parseFloat(document.getElementById('input1').value.replace(',', '.'));
+            let input2 = parseFloat(document.getElementById('input2').value.replace(',', '.'));
+            let result = (input2 * 100) / input1;
+            document.getElementById('result').value = result.toFixed(2).replace('.', ',');
+            document.getElementById('ruleOfThreeResultText').innerText = `Percentage: ${result.toFixed(2).replace('.', ',')}%`;
+        }
+
+        function calculateCompoundInterest() {
+            let initialInvestment = parseFloat(document.getElementById('initialInvestment').value);
+            let contribution = parseFloat(document.getElementById('contribution').value) || 0;
+            let rate = parseFloat(document.getElementById('rate').value) / 100;
+            let period = parseFloat(document.getElementById('period').value);
+            let frequency = document.getElementById('compoundFrequency').value;
+            
+            let total = initialInvestment;
+            if (frequency === 'daily') {
+                for (let i = 0; i < period; i++) {
+                    total += contribution;
+                    total *= (1 + rate);
+                }
+            } else {
+                for (let i = 0; i < period; i++) {
+                    total += contribution;
+                    total *= Math.pow((1 + rate), 30);
+                }
+            }
+            
+            document.getElementById('compoundInterestResultText').innerText = `Total Value: $${total.toFixed(2)}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const calculators = document.querySelectorAll('.calculator input');
+
+            calculators.forEach((input) => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const button = input.closest('.calculator').querySelector('button');
+                        button.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
