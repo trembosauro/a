@@ -145,7 +145,7 @@
         <div class="calculator" id="calculator">
             <h2>Calculator</h2>
             <div class="row">
-                <input type="text" id="operationInput" onkeypress="return isNumberKey(event)">
+                <input type="text" id="operationInput">
             </div>
             <button onclick="calculateNormal()">Calcular</button>
             <div class="result" id="normalResultText"></div>
@@ -154,11 +154,11 @@
             <h2>Leverage</h2>
             <div class="row">
                 <label for="leverage">Leverage:</label>
-                <input type="number" id="leverage" step="any" maxlength="5" onkeypress="return isNumberKey(event)">
+                <input type="number" id="leverage" step="any" maxlength="5">
             </div>
             <div class="row">
                 <label for="percentage">Percentage Earned (%):</label>
-                <input type="number" id="percentage" step="any" maxlength="5" onkeypress="return isNumberKey(event)">
+                <input type="number" id="percentage" step="any" maxlength="5">
             </div>
             <button onclick="calculateLeveragedProfit()">Calculate</button>
             <div class="result" id="leveragedProfitResultText"></div>
@@ -167,11 +167,11 @@
             <h2>Forex Lot</h2>
             <div class="row">
                 <label for="lotSize">Lot Size ($):</label>
-                <input type="number" id="lotSize" step="any" maxlength="5" onkeypress="return isNumberKey(event)">
+                <input type="number" id="lotSize" step="any" maxlength="5">
             </div>
             <div class="row">
                 <label for="profit">Profit Amount ($):</label>
-                <input type="number" id="profit" step="any" maxlength="5" onkeypress="return isNumberKey(event)">
+                <input type="number" id="profit" step="any" maxlength="5">
             </div>
             <button onclick="calculateProfit()">Calculate</button>
             <div class="result" id="profitResultText"></div>
@@ -180,7 +180,7 @@
             <h2>B3 Profit Calculator</h2>
             <div class="row">
                 <label for="contracts">Contracts:</label>
-                <input type="number" id="contracts" onkeypress="return isNumberKey(event)">
+                <input type="number" id="contracts">
             </div>
             <div class="row">
                 <label for="type">Type:</label>
@@ -193,7 +193,7 @@
             </div>
             <div class="row">
                 <label for="points">Points:</label>
-                <input type="number" id="points" step="0.5" onkeypress="return isNumberKey(event)">
+                <input type="number" id="points" step="0.5">
             </div>
             <div class="row checkbox-container">
                 <label for="taxDeducted">Tax Deducted:</label>
@@ -205,12 +205,12 @@
         <div class="calculator" id="ruleOfThreeCalculator">
             <h2>Rule of Three</h2>
             <div class="row">
-                <input type="number" id="input1" step="any" maxlength="5" onkeypress="return isNumberKey(event)">
+                <input type="number" id="input1" step="any" maxlength="5">
                 <span>&rarr;</span>
                 <input type="number" id="input3" value="100" disabled>
             </div>
             <div class="row">
-                <input type="number" id="input2" step="any" maxlength="5" onkeypress="return isNumberKey(event)">
+                <input type="number" id="input2" step="any" maxlength="5">
                 <span>&rarr;</span>
                 <input type="number" id="result" disabled placeholder="X">
             </div>
@@ -221,19 +221,19 @@
             <h2>Compound Interest Calculator</h2>
             <div class="row">
                 <label for="initialInvestment">Initial Investment ($):</label>
-                <input type="number" id="initialInvestment" step="any" onkeypress="return isNumberKey(event)">
+                <input type="number" id="initialInvestment" step="any">
             </div>
             <div class="row">
                 <label for="contribution">Daily/Monthly Contribution ($):</label>
-                <input type="number" id="contribution" step="any" onkeypress="return isNumberKey(event)">
+                <input type="number" id="contribution" step="any">
             </div>
             <div class="row">
                 <label for="rate">Daily/Monthly Interest Rate (%):</label>
-                <input type="number" id="rate" step="any" onkeypress="return isNumberKey(event)">
+                <input type="number" id="rate" step="any">
             </div>
             <div class="row">
                 <label for="period">Investment Period (days/months):</label>
-                <input type="number" id="period" step="any" onkeypress="return isNumberKey(event)">
+                <input type="number" id="period" step="any">
             </div>
             <div class="row">
                 <label for="compoundFrequency">Compounding Frequency:</label>
@@ -250,10 +250,12 @@
     <script>
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
-                return false;
+            // Allow numbers, backspace, delete, enter, left and right arrows, and basic math operators
+            if (charCode >= 48 && charCode <= 57 || charCode == 8 || charCode == 46 || charCode == 13 || 
+                charCode == 37 || charCode == 39 || charCode == 43 || charCode == 45 || charCode == 42 || charCode == 47) {
+                return true;
             }
-            return true;
+            return false;
         }
 
         function calculateB3Profit() {
@@ -347,18 +349,13 @@
         }
 
         document.addEventListener('DOMContentLoaded', (event) => {
-            const calculators = document.querySelectorAll('.calculator input[type="number"]');
+            const calculators = document.querySelectorAll('.calculator input');
 
             calculators.forEach((input) => {
                 input.addEventListener('keypress', (e) => {
                     if (!isNumberKey(e)) {
                         e.preventDefault();
                     }
-                });
-            });
-
-            document.querySelectorAll('.calculator input').forEach(input => {
-                input.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') {
                         const button = input.closest('.calculator').querySelector('button');
                         button.click();
