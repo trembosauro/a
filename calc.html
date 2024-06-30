@@ -158,11 +158,11 @@
             <h2>Leverage</h2>
             <div class="row">
                 <label for="leverage">Leverage:</label>
-                <input type="number" id="leverage" step="any" placeholder="Leverage" maxlength="5">
+                <input type="number" id="leverage" step="any" maxlength="5">
             </div>
             <div class="row">
                 <label for="percentage">Percentage Earned (%):</label>
-                <input type="number" id="percentage" step="any" placeholder="Percentage Earned" maxlength="5">
+                <input type="number" id="percentage" step="any" maxlength="5">
             </div>
             <button onclick="calculateLeveragedProfit()">Calculate</button>
             <div class="result" id="leveragedProfitResultText"></div>
@@ -172,11 +172,11 @@
             <h2>Forex Lot</h2>
             <div class="row">
                 <label for="lotSize">Lot Size ($):</label>
-                <input type="number" id="lotSize" step="any" placeholder="Lot Size" maxlength="5">
+                <input type="number" id="lotSize" step="any" maxlength="5">
             </div>
             <div class="row">
                 <label for="profit">Profit Amount ($):</label>
-                <input type="number" id="profit" step="any" placeholder="Profit Amount" maxlength="5">
+                <input type="number" id="profit" step="any" maxlength="5">
             </div>
             <button onclick="calculateProfit()">Calculate</button>
             <div class="result" id="profitResultText"></div>
@@ -186,7 +186,7 @@
             <h2>B3 Profit Calculator</h2>
             <div class="row">
                 <label for="contracts">Contracts:</label>
-                <input type="number" id="contracts" placeholder="Number of contracts">
+                <input type="number" id="contracts">
             </div>
             <div class="row">
                 <label for="type">Type:</label>
@@ -199,7 +199,7 @@
             </div>
             <div class="row">
                 <label for="points">Points:</label>
-                <input type="number" id="points" step="0.5" placeholder="Number of points">
+                <input type="number" id="points" step="0.5">
             </div>
             <div class="row checkbox-container">
                 <label for="taxDeducted">Tax Deducted:</label>
@@ -213,19 +213,19 @@
             <h2>Compound Interest Calculator</h2>
             <div class="row">
                 <label for="initialInvestment">Initial Investment ($):</label>
-                <input type="number" id="initialInvestment" step="any" placeholder="Initial Investment">
+                <input type="number" id="initialInvestment" step="any">
             </div>
             <div class="row">
                 <label for="contribution">Daily/Monthly Contribution ($):</label>
-                <input type="number" id="contribution" step="any" placeholder="Contribution">
+                <input type="number" id="contribution" step="any">
             </div>
             <div class="row">
                 <label for="rate">Daily/Monthly Interest Rate (%):</label>
-                <input type="number" id="rate" step="any" placeholder="Interest Rate">
+                <input type="number" id="rate" step="any">
             </div>
             <div class="row">
                 <label for="period">Investment Period (days/months):</label>
-                <input type="number" id="period" step="any" placeholder="Investment Period">
+                <input type="number" id="period" step="any">
             </div>
             <div class="row">
                 <label for="compoundFrequency">Compounding Frequency:</label>
@@ -241,12 +241,12 @@
         <div class="calculator" id="ruleOfThreeCalculator">
             <h2>Rule of Three</h2>
             <div class="row">
-                <input type="number" id="input1" step="any" placeholder="11.56" maxlength="5">
+                <input type="number" id="input1" step="any" maxlength="5">
                 <span>&rarr;</span>
                 <input type="number" id="input3" value="100" disabled>
             </div>
             <div class="row">
-                <input type="number" id="input2" step="any" placeholder="0.78" maxlength="5">
+                <input type="number" id="input2" step="any" maxlength="5">
                 <span>&rarr;</span>
                 <input type="number" id="result" disabled placeholder="X">
             </div>
@@ -257,7 +257,7 @@
         <div class="calculator" id="calculator">
             <h2>Calculator</h2>
             <div class="row">
-                <input type="text" id="operationInput" placeholder="Digite a operação">
+                <input type="text" id="operationInput">
             </div>
             <button onclick="calculateNormal()">Calcular</button>
             <div class="result" id="normalResultText"></div>
