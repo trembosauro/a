@@ -151,6 +151,7 @@
         <button class="calculator-button" onclick="showCalculator('b3ProfitCalculator')">B3 Profit</button>
         <button class="calculator-button" onclick="showCalculator('compoundInterestCalculator')">Compound Interest</button>
         <button class="calculator-button" onclick="showCalculator('ruleOfThreeCalculator')">Rule of Three</button>
+        <button class="calculator-button" onclick="showCalculator('calculator')">Calculator</button>
     </div>
     <div class="calculators">
         <div class="calculator" id="leverageCalculator">
@@ -252,6 +253,15 @@
             <button onclick="calculateRuleOfThree()">Calculate</button>
             <div class="result" id="ruleOfThreeResultText"></div>
         </div>
+
+        <div class="calculator" id="calculator">
+            <h2>Calculator</h2>
+            <div class="row">
+                <input type="text" id="operationInput" placeholder="Digite a operação">
+            </div>
+            <button onclick="calculateNormal()">Calcular</button>
+            <div class="result" id="normalResultText"></div>
+        </div>
     </div>
 
     <script>
@@ -343,6 +353,16 @@
             }
             
             document.getElementById('compoundInterestResultText').innerText = `Total Value: $${total.toFixed(2)}`;
+        }
+
+        function calculateNormal() {
+            let operation = document.getElementById('operationInput').value;
+            try {
+                let result = eval(operation);
+                document.getElementById('normalResultText').innerText = `Result: ${result}`;
+            } catch (error) {
+                document.getElementById('normalResultText').innerText = `Invalid Operation`;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', (event) => {
