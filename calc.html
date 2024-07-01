@@ -140,117 +140,129 @@
         }
     </style>
 </head>
-<body>
-    <div class="calculators">
-        <div class="calculator" id="calculator">
-            <h2>Calculator</h2>
-            <div class="row">
-                <input type="text" id="operationInput">
+<body onload="checkPassword()">
+    <script>
+        function checkPassword() {
+            var password = prompt("Please enter the password:");
+            if (password !== "trembo") {
+                alert("Incorrect password.");
+                document.body.innerHTML = "";
+            } else {
+                document.getElementById("content").style.display = "block";
+            }
+        }
+    </script>
+    <div id="content" style="display: none;">
+        <div class="calculators">
+            <div class="calculator" id="calculator">
+                <h2>Calculator</h2>
+                <div class="row">
+                    <input type="text" id="operationInput">
+                </div>
+                <button onclick="calculateNormal()">Calcular</button>
+                <div class="result" id="normalResultText"></div>
             </div>
-            <button onclick="calculateNormal()">Calcular</button>
-            <div class="result" id="normalResultText"></div>
-        </div>
-        <div class="calculator" id="leverageCalculator">
-            <h2>Leverage</h2>
-            <div class="row">
-                <label for="leverage">Leverage:</label>
-                <input type="number" id="leverage" step="any" maxlength="5">
+            <div class="calculator" id="leverageCalculator">
+                <h2>Leverage</h2>
+                <div class="row">
+                    <label for="leverage">Leverage:</label>
+                    <input type="number" id="leverage" step="any" maxlength="5">
+                </div>
+                <div class="row">
+                    <label for="percentage">Percentage Earned (%):</label>
+                    <input type="number" id="percentage" step="any" maxlength="5">
+                </div>
+                <button onclick="calculateLeveragedProfit()">Calculate</button>
+                <div class="result" id="leveragedProfitResultText"></div>
             </div>
-            <div class="row">
-                <label for="percentage">Percentage Earned (%):</label>
-                <input type="number" id="percentage" step="any" maxlength="5">
+            <div class="calculator" id="forexCalculator">
+                <h2>Forex Lot</h2>
+                <div class="row">
+                    <label for="lotSize">Lot Size ($):</label>
+                    <input type="number" id="lotSize" step="any" maxlength="5">
+                </div>
+                <div class="row">
+                    <label for="profit">Profit Amount ($):</label>
+                    <input type="number" id="profit" step="any" maxlength="5">
+                </div>
+                <button onclick="calculateProfit()">Calculate</button>
+                <div class="result" id="profitResultText"></div>
             </div>
-            <button onclick="calculateLeveragedProfit()">Calculate</button>
-            <div class="result" id="leveragedProfitResultText"></div>
-        </div>
-        <div class="calculator" id="forexCalculator">
-            <h2>Forex Lot</h2>
-            <div class="row">
-                <label for="lotSize">Lot Size ($):</label>
-                <input type="number" id="lotSize" step="any" maxlength="5">
+            <div class="calculator" id="b3ProfitCalculator">
+                <h2>B3 Profit Calculator</h2>
+                <div class="row">
+                    <label for="contracts">Contracts:</label>
+                    <input type="number" id="contracts">
+                </div>
+                <div class="row">
+                    <label for="type">Type:</label>
+                    <select id="type">
+                        <option value="miniIndice">Mini Index</option>
+                        <option value="miniDolar">Mini Dollar</option>
+                        <option value="indice">Index</option>
+                        <option value="dolar">Dollar</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="points">Points:</label>
+                    <input type="number" id="points" step="0.5">
+                </div>
+                <div class="row checkbox-container">
+                    <label for="taxDeducted">Tax Deducted:</label>
+                    <input type="checkbox" id="taxDeducted">
+                </div>
+                <button onclick="calculateB3Profit()">Calculate</button>
+                <div class="result" id="b3ProfitResultText"></div>
             </div>
-            <div class="row">
-                <label for="profit">Profit Amount ($):</label>
-                <input type="number" id="profit" step="any" maxlength="5">
+            <div class="calculator" id="ruleOfThreeCalculator">
+                <h2>Rule of Three</h2>
+                <div class="row">
+                    <input type="number" id="input1" step="any" maxlength="5">
+                    <span>&rarr;</span>
+                    <input type="number" id="input3" value="100" disabled>
+                </div>
+                <div class="row">
+                    <input type="number" id="input2" step="any" maxlength="5">
+                    <span>&rarr;</span>
+                    <input type="number" id="result" disabled placeholder="X">
+                </div>
+                <button onclick="calculateRuleOfThree()">Calculate</button>
+                <div class="result" id="ruleOfThreeResultText"></div>
             </div>
-            <button onclick="calculateProfit()">Calculate</button>
-            <div class="result" id="profitResultText"></div>
-        </div>
-        <div class="calculator" id="b3ProfitCalculator">
-            <h2>B3 Profit Calculator</h2>
-            <div class="row">
-                <label for="contracts">Contracts:</label>
-                <input type="number" id="contracts">
+            <div class="calculator" id="compoundInterestCalculator">
+                <h2>Compound Interest Calculator</h2>
+                <div class="row">
+                    <label for="initialInvestment">Initial Investment ($):</label>
+                    <input type="number" id="initialInvestment" step="any">
+                </div>
+                <div class="row">
+                    <label for="contribution">Daily/Monthly Contribution ($):</label>
+                    <input type="number" id="contribution" step="any">
+                </div>
+                <div class="row">
+                    <label for="rate">Daily/Monthly Interest Rate (%):</label>
+                    <input type="number" id="rate" step="any">
+                </div>
+                <div class="row">
+                    <label for="period">Investment Period (days/months):</label>
+                    <input type="number" id="period" step="any">
+                </div>
+                <div class="row">
+                    <label for="compoundFrequency">Compounding Frequency:</label>
+                    <select id="compoundFrequency">
+                        <option value="daily">Daily</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <button onclick="calculateCompoundInterest()">Calculate</button>
+                <div class="result" id="compoundInterestResultText"></div>
             </div>
-            <div class="row">
-                <label for="type">Type:</label>
-                <select id="type">
-                    <option value="miniIndice">Mini Index</option>
-                    <option value="miniDolar">Mini Dollar</option>
-                    <option value="indice">Index</option>
-                    <option value="dolar">Dollar</option>
-                </select>
-            </div>
-            <div class="row">
-                <label for="points">Points:</label>
-                <input type="number" id="points" step="0.5">
-            </div>
-            <div class="row checkbox-container">
-                <label for="taxDeducted">Tax Deducted:</label>
-                <input type="checkbox" id="taxDeducted">
-            </div>
-            <button onclick="calculateB3Profit()">Calculate</button>
-            <div class="result" id="b3ProfitResultText"></div>
-        </div>
-        <div class="calculator" id="ruleOfThreeCalculator">
-            <h2>Rule of Three</h2>
-            <div class="row">
-                <input type="number" id="input1" step="any" maxlength="5">
-                <span>&rarr;</span>
-                <input type="number" id="input3" value="100" disabled>
-            </div>
-            <div class="row">
-                <input type="number" id="input2" step="any" maxlength="5">
-                <span>&rarr;</span>
-                <input type="number" id="result" disabled placeholder="X">
-            </div>
-            <button onclick="calculateRuleOfThree()">Calculate</button>
-            <div class="result" id="ruleOfThreeResultText"></div>
-        </div>
-        <div class="calculator" id="compoundInterestCalculator">
-            <h2>Compound Interest Calculator</h2>
-            <div class="row">
-                <label for="initialInvestment">Initial Investment ($):</label>
-                <input type="number" id="initialInvestment" step="any">
-            </div>
-            <div class="row">
-                <label for="contribution">Daily/Monthly Contribution ($):</label>
-                <input type="number" id="contribution" step="any">
-            </div>
-            <div class="row">
-                <label for="rate">Daily/Monthly Interest Rate (%):</label>
-                <input type="number" id="rate" step="any">
-            </div>
-            <div class="row">
-                <label for="period">Investment Period (days/months):</label>
-                <input type="number" id="period" step="any">
-            </div>
-            <div class="row">
-                <label for="compoundFrequency">Compounding Frequency:</label>
-                <select id="compoundFrequency">
-                    <option value="daily">Daily</option>
-                    <option value="monthly">Monthly</option>
-                </select>
-            </div>
-            <button onclick="calculateCompoundInterest()">Calculate</button>
-            <div class="result" id="compoundInterestResultText"></div>
         </div>
     </div>
 
     <script>
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            // Allow numbers, backspace, delete, enter, left and right arrows, and basic math operators
             if (charCode >= 48 && charCode <= 57 || charCode == 8 || charCode == 46 || charCode == 13 || 
                 charCode == 37 || charCode == 39 || charCode == 43 || charCode == 45 || charCode == 42 || charCode == 47) {
                 return true;
