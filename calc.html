@@ -156,7 +156,7 @@
     <script>
         function checkPassword() {
             var password = prompt("Please enter the password:");
-            if (password !== "trembo") {
+            if (password.toLowerCase() !== "trembo") {
                 alert("Incorrect password.");
                 document.body.innerHTML = "";
             } else {
