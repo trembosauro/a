@@ -152,19 +152,8 @@
         }
     </style>
 </head>
-<body onload="checkPassword()">
-    <script>
-        function checkPassword() {
-            var password = prompt("Please enter the password:");
-            if (password.toLowerCase() !== "trembo") {
-                alert("Incorrect password.");
-                document.body.innerHTML = "";
-            } else {
-                document.getElementById("content").style.display = "block";
-            }
-        }
-    </script>
-    <div id="content" style="display: none;">
+<body>
+    <div id="content">
         <div class="calculators">
             <div class="calculator" id="calculator">
                 <h2>Calculator</h2>
