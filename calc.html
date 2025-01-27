@@ -137,6 +137,15 @@
                 width: 500px;
             }
         }
+        /* Remove the up and down arrows from all number inputs */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -284,7 +293,7 @@
             }
             let total = contracts * contractValue * points;
             if (taxDeducted) total *= 0.8;
-            document.getElementById('b3ProfitResultText').innerText = `Total Profit: $${total.toFixed(2)}`;
+            document.getElementById('b3ProfitResultText').innerText = `Total Profit: ${total.toFixed(2)}`;
         }
 
         function calculateLeveragedProfit() {
@@ -319,7 +328,7 @@
                 total += contribution;
                 total *= frequency === 'daily' ? (1 + rate) : Math.pow((1 + rate), 30);
             }
-            document.getElementById('compoundInterestResultText').innerText = `Total Value: $${total.toFixed(2)}`;
+            document.getElementById('compoundInterestResultText').innerText = `Total Value: ${total.toFixed(2)}`;
         }
 
         function showCalculator(calculatorId) {
